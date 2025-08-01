@@ -1,0 +1,12 @@
+basePath: /
+host: localhost:3000
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: This is a sample server for a Go Fiber API.
+  termsOfService: http://swagger.io/terms/
+  title: Go Fiber Swagger Example API
+  version: "1.0"
+paths: {}
+swagger: "2.0"
