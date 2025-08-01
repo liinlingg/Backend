@@ -1,30 +1,35 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
-
-	// Import the generated docs package
 	_ "github.com/pllus/main-fiber/docs"
+	"github.com/pllus/main-fiber/routes/example"
 )
 
-// @title Go Fiber Swagger Example API
-// @version 1.0
-// @description This is a sample server for a Go Fiber API.
-// @termsOfService http://swagger.io/terms/
-// @contact.name API Support
-// @contact.email support@example.com
-// @host localhost:3000
-// @BasePath /
 func main() {
-	// Your Fiber application setup
 	app := fiber.New()
 
-	// ... your routes
-
-	// Add the Swagger UI route
 	app.Get("/docs/*", swagger.HandlerDefault)
 
-	// Start the server
-	app.Listen(":3000")
+	app.Get("/hello", getHello)
+
+	app.Get("/User", example.GetDataHandler)
+
+	// app.Get("/Post",)
+
+	//server variables
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+
+	log.Fatal(app.Listen(":" + port))
+}
+
+func getHello(c *fiber.Ctx) error {
+	return c.SendString("Hello, World!")
 }

@@ -1,16 +1,67 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample server for a Go Fiber API.",
-        "title": "Go Fiber Swagger Example API",
-        "termsOfService": "http://swagger.io/terms/",
-        "contact": {
-            "name": "API Support",
-            "email": "support@example.com"
-        },
-        "version": "1.0"
+        "contact": {}
     },
-    "host": "localhost:3000",
-    "basePath": "/",
-    "paths": {}
+    "paths": {
+        "/User": {
+            "get": {
+                "description": "Reads and sends the content of a static data.json file.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "example"
+                ],
+                "summary": "Get static data",
+                "responses": {
+                    "200": {
+                        "description": "The data from the JSON file",
+                        "schema": {
+                            "$ref": "#/definitions/example.DataResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Could not read data file.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "example.DataResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/example.Item"
+                    }
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "example.Item": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Item A"
+                }
+            }
+        }
+    }
 }
