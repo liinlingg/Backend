@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "role001",
+    "roleName": "Member",
+    "canPostBlog": false,
+    "canPostEvent": false,
+    "canComment": true,
+    "canGiveRole": false
+  },
+  {
+    "_id": "role002",
+    "roleName": "Admin",
+    "canPostBlog": true,
+    "canPostEvent": true,
+    "canComment": true,
+    "canGiveRole": true
+  },
+  {
+    "_id": "role003",
+    "roleName": "Head Associate",
+    "canPostBlog": true,
+    "canPostEvent": true,
+    "canComment": true,
+    "canGiveRole": true
+  }
+]
