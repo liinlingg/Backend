@@ -9,20 +9,21 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
+//go:embed test.json
 var embeddedFiles embed.FS
 
-type DataResponse struct {
-	Status string `json:"status" example:"success"`
-	Data   []Item `json:"data"`
+// User represents the structure of a single user object in your JSON.
+type User struct {
+	ID        int      `json:"id"`
+	FirstName string   `json:"firstName"`
+	LastName  string   `json:"lastName"`
+	Email     string   `json:"email"`
+	Roles     []string `json:"roles"`
 }
 
-type Item struct {
-	ID   int    `json:"id" example:"1"`
-	Name string `json:"name" example:"Item A"`
-}
-
+// GetDataHandler reads the embedded JSON file and sends it as the response.
 func GetDataHandler(c *fiber.Ctx) error {
-	jsonData, err := embeddedFiles.ReadFile("post.json")
+	jsonData, err := embeddedFiles.ReadFile("test.json")
 
 	if err != nil {
 		log.Printf("Error reading embedded file: %v", err)
