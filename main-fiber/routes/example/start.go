@@ -35,6 +35,21 @@ func GetDataHandler(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).Send(jsonData)
 }
 
+//go:embed post.json
+var embed_file embed.FS
+
+func GetDataHandler_post(c *fiber.Ctx) error {
+	jsonData, err := embed_file.ReadFile("test.json")
+
+	if err != nil {
+		log.Printf("Error reading embedded file: %v", err)
+		return c.Status(fiber.StatusInternalServerError).SendString("Could not read data file.")
+	}
+
+	// Set the content type header and send the raw JSON data
+	c.Set(fiber.HeaderContentType, fiber.MIMEApplicationJSON)
+	return c.Status(http.StatusOK).Send(jsonData)
+}
 func main() {
 	app := fiber.New()
 	app.Use(logger.New())

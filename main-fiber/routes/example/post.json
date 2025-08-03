@@ -1,10 +1,26 @@
 [
   {
     "username": "admin",
-    "password": "password123"
+    "Content": "Loremi ipsum Diwjdwaoudhawuodhawudh",
+    "image": "smthin",
+    "Video": "smthin",
+    "Category": [
+      "Engineer"
+    ],
+    "Roles": [
+      "Dongtan"
+    ]
   },
   {
-    "username": "guest",
-    "password": "guestpassword"
+    "username": "admin",
+    "Content": "Loremi ipsum Diwjdwaoudhawuodhawudh",
+    "image": "smthin",
+    "Video": "smthin",
+    "Category": [
+      "Engineer"
+    ],
+    "Roles": [
+      "Dongtan"
+    ]
   }
 ]

@@ -19,7 +19,11 @@ func main() {
 	app.Get("/hello", getHello)
 	privateRoutes := app.Group("/", middleware.AuthMiddleware)
 	app.Get("/User", example.GetDataHandler)
+	app.Get("/Post", example.GetDataHandler_post)
 	privateRoutes.Get("/Protected", example.GetDataHandler)
+	privateRoutes.Get("/Protected", example.GetDataHandler)
+
+	// GetDataHandler_post
 
 	// app.Get("/Post",)
 
