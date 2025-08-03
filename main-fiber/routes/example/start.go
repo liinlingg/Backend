@@ -22,7 +22,7 @@ type Item struct {
 }
 
 func GetDataHandler(c *fiber.Ctx) error {
-	jsonData, err := embeddedFiles.ReadFile("../../../mock_data/post.json")
+	jsonData, err := embeddedFiles.ReadFile("post.json")
 
 	if err != nil {
 		log.Printf("Error reading embedded file: %v", err)
