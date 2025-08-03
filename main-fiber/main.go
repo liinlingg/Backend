@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
 	_ "github.com/pllus/main-fiber/docs"
+	"github.com/pllus/main-fiber/middleware"
 	"github.com/pllus/main-fiber/routes/example"
 )
 
@@ -16,8 +17,9 @@ func main() {
 	app.Get("/docs/*", swagger.HandlerDefault)
 
 	app.Get("/hello", getHello)
-
+	privateRoutes := app.Group("/", middleware.AuthMiddleware)
 	app.Get("/User", example.GetDataHandler)
+	privateRoutes.Get("/Protected", example.GetDataHandler)
 
 	// app.Get("/Post",)
 
