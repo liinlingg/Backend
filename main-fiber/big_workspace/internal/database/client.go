@@ -15,6 +15,13 @@ func ConnectMongo(uri string) *mongo.Client {
 
 	client, err := mongo.Connect(opts)
 	if err != nil {
-		
+		log.Fetal("MongoDB connection error:", err)
 	}
+
+	if err := client.Ping(context.TODO(), readpref.Primary()); err != nil {
+		log.Fetal("Failed to ping MongoDB:", err)
+	}
+
+	fmt.Println("Connected to MongoDB")
+	return client
 }
