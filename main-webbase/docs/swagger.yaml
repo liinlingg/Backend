@@ -1,0 +1,2507 @@
+basePath: /
+definitions:
+  controllers.FeedCursorEnvelope:
+    properties:
+      has_more:
+        example: true
+        type: boolean
+      items:
+        items:
+          additionalProperties: {}
+          type: object
+        type: array
+      next_cursor:
+        example: eyJpZCI6IjY4ZTYzMDAyZGYyMjVjZDk1NTE3M2RiIn0=
+        type: string
+    type: object
+  dto.AnswerSubmitItemDTO:
+    properties:
+      answer_value:
+        type: string
+      order_index:
+        example: 1
+        type: integer
+      question_id:
+        type: string
+    required:
+    - question_id
+    type: object
+  dto.CommentResp:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: string
+      likeCount:
+        type: integer
+      postId:
+        type: string
+      text:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: string
+    type: object
+  dto.CreateCommentReq:
+    properties:
+      text:
+        maxLength: 2000
+        minLength: 1
+        type: string
+    required:
+    - text
+    type: object
+  dto.ErrorResponse:
+    properties:
+      error:
+        example: invalid body
+        type: string
+    type: object
+  dto.EventCreateResult:
+    properties:
+      event:
+        $ref: '#/definitions/models.Event'
+      form_id:
+        type: string
+      organizer_count:
+        type: integer
+      schedules:
+        items:
+          $ref: '#/definitions/models.EventSchedule'
+        type: array
+    type: object
+  dto.EventDetail:
+    properties:
+      current_participation:
+        type: integer
+      description:
+        type: string
+      event_id:
+        type: string
+      have_form:
+        type: boolean
+      max_participation:
+        type: integer
+      orgpath:
+        type: string
+      picture_url:
+        type: string
+      posted_as:
+        $ref: '#/definitions/models.PostedAs'
+      schedules:
+        items:
+          $ref: '#/definitions/models.EventSchedule'
+        type: array
+      status:
+        type: string
+      topic:
+        type: string
+      user_participants:
+        items:
+          $ref: '#/definitions/dto.UserParticipant'
+        type: array
+      visibility:
+        $ref: '#/definitions/models.Visibility'
+    type: object
+  dto.EventRequestDTO:
+    properties:
+      description:
+        example: A workshop on AI applications
+        type: string
+      have_form:
+        example: true
+        type: boolean
+      max_participation:
+        example: 50
+        type: integer
+      node_id:
+        example: 66ffa43e9a7c39b1d87f6401
+        type: string
+      org_of_content:
+        example: /fac/eng/com
+        type: string
+      picture_url:
+        example: http://45.144.166.252:46602/uploads/cat.png
+        type: string
+      posted_as:
+        $ref: '#/definitions/models.PostedAs'
+      schedules:
+        items:
+          $ref: '#/definitions/dto.ScheduleDTO'
+        type: array
+      status:
+        enum:
+        - active
+        - draft
+        - inactive
+        example: draft
+        type: string
+      topic:
+        example: AI Workshop
+        type: string
+      visibility:
+        $ref: '#/definitions/models.Visibility'
+    required:
+    - node_id
+    - topic
+    type: object
+  dto.FormMatrixResponseDTO:
+    properties:
+      form_id:
+        type: string
+      questions:
+        items:
+          $ref: '#/definitions/dto.QuestionDTO'
+        type: array
+      responses:
+        items:
+          $ref: '#/definitions/dto.UserAnswersDTO'
+        type: array
+    type: object
+  dto.FormQuestionCreateDTO:
+    properties:
+      questions:
+        items:
+          $ref: '#/definitions/dto.QuestionItemDTO'
+        type: array
+    required:
+    - questions
+    type: object
+  dto.FormResponseSubmitDTO:
+    properties:
+      answers:
+        items:
+          $ref: '#/definitions/dto.AnswerSubmitItemDTO'
+        type: array
+    required:
+    - answers
+    type: object
+  dto.LikeRequestDTO:
+    properties:
+      targetId:
+        type: string
+      targetType:
+        description: '"post" | "comment"'
+        type: string
+    type: object
+  dto.ListCommentsResp:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/dto.CommentResp'
+        type: array
+      has_more:
+        type: boolean
+      isLiked:
+        type: boolean
+      next_cursor:
+        type: string
+    type: object
+  dto.MembershipProfileDTO:
+    properties:
+      membership_name:
+        description: e.g., Position Display Name
+        type: string
+      org_unit:
+        $ref: '#/definitions/models.OrgUnitNode'
+      policies:
+        $ref: '#/definitions/models.Policy'
+      position:
+        $ref: '#/definitions/models.Position'
+    type: object
+  dto.OrgUnitDTO:
+    properties:
+      name:
+        type: string
+      parent_path:
+        type: string
+      slug:
+        type: string
+      type:
+        type: string
+    type: object
+  dto.OrgUnitReport:
+    properties:
+      name:
+        type: string
+      org_id:
+        type: string
+      org_path:
+        type: string
+      short_name:
+        type: string
+    type: object
+  dto.OrgUnitTree:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/dto.OrgUnitTree'
+        type: array
+      label:
+        type: string
+      org_path:
+        type: string
+      short_name:
+        type: string
+      type:
+        type: string
+    type: object
+  dto.PolicyUpdateDTO:
+    properties:
+      actions:
+        items:
+          type: string
+        type: array
+      enabled:
+        type: boolean
+      key:
+        type: string
+      org_path:
+        type: string
+    type: object
+  dto.PositionCreateDTO:
+    properties:
+      constraints:
+        $ref: '#/definitions/models.Constraints'
+      display:
+        additionalProperties:
+          type: string
+        type: object
+      key:
+        type: string
+      policy:
+        properties:
+          actions:
+            items:
+              type: string
+            type: array
+          enabled:
+            type: boolean
+          type:
+            description: '"exact" or "subtree"'
+            type: string
+        type: object
+      rank:
+        type: integer
+      scope:
+        $ref: '#/definitions/models.Scope'
+      status:
+        type: string
+    type: object
+  dto.PostAs:
+    properties:
+      label:
+        description: e.g., "Head • SMO"
+        type: string
+      org_path:
+        type: string
+      position_key:
+        type: string
+    type: object
+  dto.PostResponse:
+    properties:
+      categoryIds:
+        example:
+        - '[''68bd8d30b98a8dce0eab0db6'''
+        - '''68bd8d30b98a8dce0eab0db7'']'
+        items:
+          type: string
+        type: array
+      commentCount:
+        example: 0
+        type: integer
+      createdAt:
+        example: "2025-09-07T13:47:47Z"
+        type: string
+      hashtag:
+        items:
+          type: string
+        type: array
+      is_liked:
+        example: false
+        type: boolean
+      likeCount:
+        example: 0
+        type: integer
+      media:
+        example:
+        - '[''ttp://45.144.166.252:46602/uploads/cat.png'']'
+        items:
+          type: string
+        type: array
+      name:
+        example: JY
+        type: string
+      org_of_content:
+        description: this content belongs to which org (org_path)
+        type: string
+      postAs:
+        allOf:
+        - $ref: '#/definitions/dto.PostAs'
+        description: which role is posting this
+      postText:
+        example: สวัสดี KU!
+        type: string
+      status:
+        example: active
+        type: string
+      updatedAt:
+        example: "2025-09-07T13:47:47Z"
+        type: string
+      userId:
+        example: 66c6248b98c56c39f018e7d2
+        type: string
+      username:
+        example: jy_smo
+        type: string
+      visibility:
+        allOf:
+        - $ref: '#/definitions/dto.Visibility'
+        description: which roles can see this post, array of roleIds
+    type: object
+  dto.QuestionDTO:
+    properties:
+      id:
+        type: string
+      text:
+        type: string
+    type: object
+  dto.QuestionItemDTO:
+    properties:
+      order_index:
+        example: 1
+        type: integer
+      question_text:
+        example: What is your name?
+        type: string
+      required:
+        example: true
+        type: boolean
+    required:
+    - question_text
+    type: object
+  dto.ScheduleDTO:
+    properties:
+      date:
+        type: string
+      description:
+        type: string
+      location:
+        type: string
+      time_end:
+        type: string
+      time_start:
+        type: string
+    type: object
+  dto.UpdateParticipantStatusDTO:
+    properties:
+      event_id:
+        example: 66ffb4e71b64d7a993d53401
+        type: string
+      status:
+        enum:
+        - accept
+        - stall
+        - reject
+        example: accept
+        type: string
+      user_id:
+        example: 66ffb4e71b64d7a993d53400
+        type: string
+    required:
+    - event_id
+    - status
+    - user_id
+    type: object
+  dto.UpdatePostFullDTO:
+    properties:
+      categoryIds:
+        items:
+          type: string
+        type: array
+      org_of_content:
+        type: string
+      pictureUrl:
+        items:
+          type: string
+        type: array
+      postAs:
+        $ref: '#/definitions/dto.PostAs'
+      postText:
+        type: string
+      status:
+        type: string
+      videoUrl:
+        items:
+          type: string
+        type: array
+      visibility:
+        $ref: '#/definitions/dto.Visibility'
+    required:
+    - postAs
+    - postText
+    - visibility
+    type: object
+  dto.UserAnswersDTO:
+    properties:
+      answers:
+        items:
+          type: string
+        type: array
+      first_name:
+        type: string
+      last_name:
+        type: string
+      status:
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.UserParticipant:
+    properties:
+      first_name:
+        type: string
+      last_name:
+        type: string
+      status:
+        description: '"participant/organizer"'
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.UserProfileDTO:
+    properties:
+      advisor_id:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      lastname:
+        type: string
+      memberships:
+        items:
+          $ref: '#/definitions/dto.MembershipProfileDTO'
+        type: array
+      profile_pic:
+        type: string
+      student_id:
+        type: string
+      thaiprefix:
+        type: string
+      type_person:
+        type: string
+    type: object
+  dto.Visibility:
+    properties:
+      access:
+        type: string
+      audience:
+        items:
+          type: string
+        type: array
+    type: object
+  models.AudienceItem:
+    properties:
+      org_path:
+        type: string
+      scope:
+        description: '"exact" | "subtree"'
+        type: string
+    type: object
+  models.Constraints:
+    properties:
+      exclusive_per_org:
+        type: boolean
+    type: object
+  models.Event:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      have_form:
+        type: boolean
+      id:
+        type: string
+      max_participation:
+        type: integer
+      node_id:
+        type: string
+      org_of_content:
+        type: string
+      picture_url:
+        type: string
+      posted_as:
+        $ref: '#/definitions/models.PostedAs'
+      status:
+        description: active, draft, inactive
+        type: string
+      topic:
+        type: string
+      updated_at:
+        type: string
+      visibility:
+        $ref: '#/definitions/models.Visibility'
+    type: object
+  models.Event_form:
+    properties:
+      created_at:
+        type: string
+      event_id:
+        type: string
+      id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Event_form_question:
+    properties:
+      created_at:
+        type: string
+      form_id:
+        type: string
+      id:
+        type: string
+      order_index:
+        type: integer
+      question_text:
+        type: string
+      required:
+        description: Optional / Required
+        type: boolean
+    type: object
+  models.EventSchedule:
+    properties:
+      date:
+        type: string
+      description:
+        type: string
+      event_id:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      time_end:
+        type: string
+      time_start:
+        type: string
+    type: object
+  models.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.MembershipRequestDTO:
+    properties:
+      active:
+        type: boolean
+      org_path:
+        type: string
+      position_key:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.OrgUnitNode:
+    properties:
+      ancestors:
+        items:
+          type: string
+        type: array
+      created_at:
+        type: string
+      depth:
+        type: integer
+      id:
+        type: string
+      name:
+        type: string
+      org_path:
+        type: string
+      parent_path:
+        type: string
+      shortname:
+        type: string
+      slug:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Policy:
+    properties:
+      _id:
+        type: string
+      actions:
+        items:
+          type: string
+        type: array
+      created_at:
+        type: string
+      enabled:
+        type: boolean
+      org_prefix:
+        type: string
+      position_key:
+        type: string
+      scope:
+        description: exact (control only the same orgpath) & subtree (control orgpath
+          under this path)
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.Position:
+    properties:
+      _id:
+        type: string
+      constraints:
+        $ref: '#/definitions/models.Constraints'
+      createdAt:
+        type: string
+      display:
+        additionalProperties:
+          type: string
+        type: object
+      key:
+        type: string
+      rank:
+        type: integer
+      scope:
+        $ref: '#/definitions/models.Scope'
+      status:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.Post:
+    properties:
+      CommentCount:
+        type: integer
+      category:
+        items:
+          type: string
+        type: array
+      censoredText:
+        type: string
+      createdAt:
+        type: string
+      hashtag:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      is_liked:
+        type: boolean
+      likeCount:
+        type: integer
+      media:
+        items:
+          type: string
+        type: array
+      name:
+        description: "Username  \t string        `bson:\"username\" json:\"username\"`"
+        type: string
+      positionId:
+        type: string
+      postAs:
+        $ref: '#/definitions/models.PostAs'
+      postText:
+        type: string
+      rolePathId:
+        type: string
+      status:
+        description: active, deleted
+        type: string
+      tags:
+        type: string
+      updatedAt:
+        type: string
+      userId:
+        type: string
+      visibility:
+        type: string
+    type: object
+  models.PostAs:
+    properties:
+      org_path:
+        type: string
+      position_key:
+        type: string
+    type: object
+  models.PostedAs:
+    properties:
+      label:
+        type: string
+      org_path:
+        type: string
+      position_key:
+        type: string
+    type: object
+  models.RegisterRequest:
+    properties:
+      advisor_id:
+        type: string
+      allergy:
+        type: string
+      disease:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      gender:
+        type: string
+      lastname:
+        type: string
+      organize_path:
+        type: string
+      password:
+        type: string
+      student_id:
+        type: string
+      telephone:
+        type: string
+      thaiprefix:
+        type: string
+      type_person:
+        type: string
+    type: object
+  models.Scope:
+    properties:
+      inherit:
+        type: boolean
+      org_path:
+        type: string
+    type: object
+  models.Visibility:
+    properties:
+      access:
+        type: string
+      allow_user_ids:
+        items:
+          type: string
+        type: array
+      audience:
+        items:
+          $ref: '#/definitions/models.AudienceItem'
+        type: array
+      deny_user_ids:
+        items:
+          type: string
+        type: array
+      exclude_positions:
+        items:
+          type: string
+        type: array
+      include_positions:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: This is a sample server for user management.
+  title: Fiber MongoDB API
+  version: "1.0"
+paths:
+  /comments/{commentId}:
+    delete:
+      description: Only the owner or an admin (root) can delete a comment
+      parameters:
+      - description: Comment ID (hex ObjectID)
+        in: path
+        name: commentId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: no content
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a comment
+      tags:
+      - comments
+    put:
+      consumes:
+      - application/json
+      description: Only the owner can update a comment
+      parameters:
+      - description: Comment ID (hex ObjectID)
+        in: path
+        name: commentId
+        required: true
+        type: string
+      - description: Fields to update (Text)
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateCommentReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CommentResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a comment
+      tags:
+      - comments
+  /event:
+    get:
+      consumes:
+      - application/json
+      description: 'Retrieve all events that the current user can see. This endpoint
+        returns events visible to the current authenticated user. You can optionally
+        filter the events using query parameters: \n - `q` (string): Search text that
+        matches the event''s topic or description (case-insensitive). \n - `role`
+        (string, comma-separated): Filter by user role or organization path. Each
+        value can be: \n - A position key, e.g., `Lecturer` (matches `postedas.position_key`,
+        case-insensitive exact match). \n - An organization path, e.g., `/fac/eng/com`
+        (matches `org_of_content`). \n - Subtree prefix is supported using `/*`, e.g.,
+        `/fac/eng/*` matches `/fac/eng/com` or `/fac/eng/math`. \n If no filters are
+        applied, all events that the user can see (based on visibility rules) are
+        returned. \n Visibility rules: \n - `public`: visible to everyone. \n - `org`:
+        visible only to users whose organization is included in the audience. \n -
+        `draft`: visible only to organizers within the same organization.'
+      parameters:
+      - description: Search text in topic or description
+        in: query
+        name: q
+        type: string
+      - description: Comma-separated list of roles or org paths to filter
+        in: query
+        name: role
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Array of visible events with their next upcoming schedule
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "401":
+          description: Unauthorized - user not authenticated
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all visible events
+      tags:
+      - events
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create an event with optional image upload and schedule creation
+      parameters:
+      - description: Event image file upload
+        in: formData
+        name: file
+        type: file
+      - description: Node ID
+        in: formData
+        name: NodeID
+        required: true
+        type: string
+      - description: Event topic
+        in: formData
+        name: topic
+        type: string
+      - description: Event description
+        in: formData
+        name: description
+        type: string
+      - description: Organization responsible for content (e.g. /fac/eng/com)
+        in: formData
+        name: org_of_content
+        type: string
+      - description: Event status
+        enum:
+        - active
+        - draft
+        - inactive
+        in: formData
+        name: status
+        type: string
+      - description: Maximum participants
+        in: formData
+        name: max_participation
+        type: integer
+      - description: Whether event has a form (true/false)
+        in: formData
+        name: have_form
+        type: boolean
+      - description: Organization path of the posting role
+        in: formData
+        name: postedAs.org_path
+        required: true
+        type: string
+      - description: Position key of the posting role
+        in: formData
+        name: postedAs.position_key
+        required: true
+        type: string
+      - description: Visibility JSON string, e.g., {\
+        in: formData
+        name: visibility
+        type: string
+      - description: Schedules JSON array, e.g., [{\
+        in: formData
+        name: schedules
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Event created successfully
+          schema:
+            $ref: '#/definitions/dto.EventCreateResult'
+        "400":
+          description: Bad request (invalid input)
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: 'Forbidden: Cannot post as this role'
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new event
+      tags:
+      - events
+  /event/{event_id}:
+    delete:
+      description: Mark event as hidden (status=inactive)
+      parameters:
+      - description: Event ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Event deleted successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Soft delete an event
+      tags:
+      - events
+    get:
+      description: Retrieve full details of an event including schedules and form
+        ID
+      parameters:
+      - description: Event ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.EventDetail'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get event detail
+      tags:
+      - events
+    patch:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Update any field of an event, including image and schedules
+      parameters:
+      - description: Event ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      - description: Event fields to update (JSON)
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.EventRequestDTO'
+      - description: Optional event image file
+        in: formData
+        name: file
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Event updated successfully
+          schema:
+            $ref: '#/definitions/dto.EventRequestDTO'
+        "400":
+          description: Bad request (invalid event_id or request body)
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: 'Forbidden: Cannot post as this role'
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update an event
+      tags:
+      - events
+  /event/{eventId}/form/answers:
+    post:
+      consumes:
+      - application/json
+      description: Submit answers to a form. A user can only submit once per form.
+      parameters:
+      - description: User answers payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FormResponseSubmitDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Response submitted successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid request or user already submitted
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Submit user answers for a form
+      tags:
+      - forms
+  /event/{eventId}/form/disable:
+    post:
+      consumes:
+      - application/json
+      description: Marks a form as disabled for a specified event ID.
+      parameters:
+      - description: Event ID to disable form
+        in: path
+        name: eventId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Form disabled successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Disable a form for an event
+      tags:
+      - forms
+  /event/{eventId}/form/initialize:
+    post:
+      consumes:
+      - application/json
+      description: Create a new form associated with the specified event ID. Returns
+        the created form details.
+      parameters:
+      - description: Event ID to initialize form
+        in: path
+        name: eventId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Form initialized successfully
+          schema:
+            $ref: '#/definitions/models.Event_form'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Initialize a new form for an event
+      tags:
+      - forms
+  /event/{eventId}/form/matrix:
+    get:
+      consumes:
+      - application/json
+      description: Fetch all submitted responses for a given form along with the corresponding
+        questions.
+      parameters:
+      - description: Form ID
+        in: path
+        name: formId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Form answers fetched successfully
+          schema:
+            $ref: '#/definitions/dto.FormMatrixResponseDTO'
+        "400":
+          description: Form ID required
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all user answers with questions
+      tags:
+      - forms
+  /event/{eventId}/form/questions:
+    get:
+      consumes:
+      - application/json
+      description: Fetch all questions associated with a specific form ID.
+      parameters:
+      - description: Form ID
+        in: path
+        name: formId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Questions fetched successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Form ID required
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get form questions
+      tags:
+      - forms
+    post:
+      consumes:
+      - application/json
+      description: Replaces all questions for a given form with the provided question
+        list. Requires permission to manage the event.
+      parameters:
+      - description: Form questions payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FormQuestionCreateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Questions replaced successfully
+          schema:
+            items:
+              $ref: '#/definitions/models.Event_form_question'
+            type: array
+        "400":
+          description: Invalid request or missing FormID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: No permission to manage this event
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Form not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create or replace form questions
+      tags:
+      - forms
+  /event/activate/{event_id}:
+    patch:
+      consumes:
+      - application/json
+      description: Change the status of an event to "active"
+      parameters:
+      - description: Event ID to activate
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Event status updated successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid event ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Event not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Activate an event
+      tags:
+      - events
+  /event/participant/mystatus/{eventId}:
+    get:
+      consumes:
+      - application/json
+      description: Returns the status of the authenticated user for a specific event.
+      parameters:
+      - description: Event ID
+        in: path
+        name: eventId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Current user status
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get current user's participant status
+      tags:
+      - participants
+  /event/participant/status:
+    put:
+      consumes:
+      - application/json
+      description: Update a participant's status (accept, stall, reject) for a specific
+        event.
+      parameters:
+      - description: Participant status payload
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateParticipantStatusDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Update user status success
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Missing required fields
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to update status
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update participant status
+      tags:
+      - participants
+  /event/participate/{event_id}:
+    post:
+      description: Join an event directly if it does not require a form
+      parameters:
+      - description: Event ID
+        in: path
+        name: event_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Participation successful
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Participate in an event (no form required)
+      tags:
+      - events
+  /likes:
+    post:
+      consumes:
+      - application/json
+      description: Toggle like (หรือ unlike) ให้โพสต์หรือคอมเมนต์ตาม target ที่ส่งมา
+        โดยผูกกับผู้ใช้ที่ล็อกอินอยู่
+      parameters:
+      - description: ข้อมูล target ที่จะ like/unlike
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LikeRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: สถานะล่าสุดของ like พร้อมจำนวนยอดรวม
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: ข้อมูลไม่ถูกต้อง
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: ไม่มีสิทธิ์ (ยังไม่ล็อกอิน)
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: เกิดข้อผิดพลาดระหว่างประมวลผล
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Toggle like on a target
+      tags:
+      - likes
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return JWT token
+      parameters:
+      - description: Login Request
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User and access token
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Invalid credentials
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Database or token error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login user
+      tags:
+      - auth
+  /memberships:
+    post:
+      consumes:
+      - application/json
+      description: Assigns a user to an organization and position
+      parameters:
+      - description: Membership data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.MembershipRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: membership created
+          schema:
+            $ref: '#/definitions/models.MembershipRequestDTO'
+        "400":
+          description: invalid body
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Create a new membership
+      tags:
+      - Memberships
+  /memberships/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Set membership active=false by id
+      parameters:
+      - description: Membership ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Deactivate membership
+      tags:
+      - memberships
+  /memberships/users:
+    get:
+      consumes:
+      - application/json
+      description: Returns active memberships at exact org_path, joined with basic
+        user info
+      parameters:
+      - description: Organization path
+        in: query
+        name: org_path
+        required: true
+        type: string
+      - description: 'active|all (default: active)'
+        in: query
+        name: active
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List memberships at an org with user details
+      tags:
+      - memberships
+  /notifications:
+    get:
+      description: Return all unread notifications and the total count for the authenticated
+        user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Unread notification count and list
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Failed to fetch notifications
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List unread notifications for the current user
+      tags:
+      - notifications
+  /notifications/{id}:
+    get:
+      description: Fetch a notification by ID for the authenticated user, mark it
+        as read, and return the updated document.
+      parameters:
+      - description: Notification ID (hex ObjectID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated notification document
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Notification not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to update notification
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get a notification and mark it as read
+      tags:
+      - notifications
+  /org/units:
+    get:
+      consumes:
+      - application/json
+      description: Returns a flat list of org units, optionally filtered by start
+        prefix and search text
+      parameters:
+      - description: Org prefix
+        in: query
+        name: start
+        type: string
+      - description: Search by name or path (case-insensitive)
+        in: query
+        name: search
+        type: string
+      - description: Limit results (default 50)
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.OrgUnitTree'
+            type: array
+      summary: List organization units
+      tags:
+      - Org Units
+    post:
+      consumes:
+      - application/json
+      description: Creates a new organization unit node in the hierarchy
+      parameters:
+      - description: Org Unit Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.OrgUnitDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.OrgUnitReport'
+        "400":
+          description: invalid request body
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Create a new organization unit
+      tags:
+      - Org Units
+  /org/units/tree:
+    get:
+      consumes:
+      - application/json
+      description: Returns an organization tree starting from a given path and optional
+        depth
+      parameters:
+      - description: Starting org path
+        in: query
+        name: start
+        required: true
+        type: string
+      - description: Depth of tree to fetch
+        in: query
+        name: depth
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.OrgUnitTree'
+            type: array
+        "400":
+          description: invalid query parameters
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get organization tree
+      tags:
+      - Org Units
+  /policies:
+    delete:
+      consumes:
+      - application/json
+      description: Delete policies by org_prefix and optional position_key
+      parameters:
+      - description: Org prefix
+        in: query
+        name: org_prefix
+        required: true
+        type: string
+      - description: Position key
+        in: query
+        name: position_key
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete policies
+      tags:
+      - Policies
+    get:
+      consumes:
+      - application/json
+      description: Returns policies, optionally filtered by org_prefix and/or position_key
+      parameters:
+      - description: Org prefix filter
+        in: query
+        name: org_prefix
+        type: string
+      - description: Position key filter
+        in: query
+        name: position_key
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List policies
+      tags:
+      - Policies
+    put:
+      consumes:
+      - application/json
+      description: 'Updates policy actions for a position. Only the actions sent will
+        be kept. Supported actions:'
+      parameters:
+      - description: Policy update data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PolicyUpdateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: policy updated successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: invalid body
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "403":
+          description: no permission to manage this policy
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: target policy not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: failed to update policy
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Update Policy actions
+      tags:
+      - Policies
+  /positions:
+    get:
+      consumes:
+      - application/json
+      description: Returns a list of positions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: List positions
+      tags:
+      - positions
+    post:
+      consumes:
+      - application/json
+      description: 'Create a new position and attach a policy. Policy actions support
+        only:'
+      parameters:
+      - description: Position & Policy data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PositionCreateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: position created successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: invalid body
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Create a new Position with Policy
+      tags:
+      - Positions
+  /posts:
+    get:
+      description: List posts that the viewer has permission to see, based on their
+        organizational unit and position.
+      parameters:
+      - default: 10
+        description: Max items per page
+        in: query
+        maximum: 20
+        minimum: 1
+        name: limit
+        type: integer
+      - description: Opaque next-page cursor (base64)
+        in: query
+        name: cursor
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.FeedCursorEnvelope'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get posts visible to the viewer
+      tags:
+      - feed
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a new post; supports multipart form upload
+      parameters:
+      - description: Upload media file
+        in: formData
+        name: file
+        type: file
+      - description: Post text
+        in: formData
+        name: postText
+        required: true
+        type: string
+      - description: Organization of content
+        in: formData
+        name: org_of_content
+        type: string
+      - description: Organization path
+        in: formData
+        name: postAs.org_path
+        required: true
+        type: string
+      - description: Position key
+        in: formData
+        name: postAs.position_key
+        required: true
+        type: string
+      - description: 'Visibility (default: public)'
+        in: formData
+        name: visibility.access
+        type: string
+      - description: Category IDs (repeatable)
+        in: formData
+        name: categoryIds
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.PostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Create a post with optional media upload
+      tags:
+      - posts
+  /posts/{post_id}:
+    delete:
+      description: เปลี่ยนสถานะโพสต์จาก active เป็น inactive (soft delete)
+      parameters:
+      - description: Post ID (hex)
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: 'Soft delete post (status: active -> inactive)'
+      tags:
+      - posts
+    get:
+      consumes:
+      - application/json
+      description: Return post detail (user, position, org path, visibility, categories,
+        likes count, etc.)
+      parameters:
+      - description: Post ID (hex)
+        in: path
+        name: post_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get a post detail
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: Update post text, medias, categories, visibility, and posted-as.
+        Owner can edit content; admin/root can also change status.
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Post ID (hex)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Full update payload
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdatePostFullDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a post (full replace of editable fields)
+      tags:
+      - posts
+  /posts/{postId}/comments:
+    get:
+      description: Fetch comments of a post with cursor pagination
+      parameters:
+      - description: Post ID (hex ObjectID)
+        in: path
+        name: postId
+        required: true
+        type: string
+      - default: 20
+        description: Max items per page
+        in: query
+        maximum: 100
+        minimum: 1
+        name: limit
+        type: integer
+      - description: Opaque next-page cursor
+        in: query
+        name: cursor
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ListCommentsResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: List comments of a post
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      description: Create a new comment under the given post
+      parameters:
+      - description: Post ID (hex ObjectID)
+        in: path
+        name: postId
+        required: true
+        type: string
+      - description: Comment payload (Text)
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateCommentReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CommentResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a comment
+      tags:
+      - comments
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account with hashed password and send OTP
+      parameters:
+      - description: Register Request
+        in: body
+        name: registerRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User registered successfully, OTP sent
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid request body or email already exists
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Failed to create user
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register a new user
+      tags:
+      - auth
+  /user/{field}/{value}:
+    get:
+      description: Get a user by ID, firstname, lastname, etc.
+      parameters:
+      - description: Search value
+        in: path
+        name: value
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get user by field
+      tags:
+      - users
+  /users:
+    get:
+      description: Returns all users in database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get all users
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      description: Delete a user with given ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Delete user by ID
+      tags:
+      - users
+  /users/myprofile:
+    get:
+      description: Returns the profile of the currently authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserProfileDTO'
+        "401":
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get my profile
+      tags:
+      - Users
+  /users/profile:
+    get:
+      description: Returns profile information for a given user ID via query param
+        `id`
+      parameters:
+      - description: User ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserProfileDTO'
+        "400":
+          description: missing id
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get user profile by ID (query)
+      tags:
+      - Users
+  /users/profile/{id}:
+    get:
+      description: Returns profile information for a given user ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserProfileDTO'
+        "404":
+          description: user not found
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+        "500":
+          description: internal server error
+          schema:
+            $ref: '#/definitions/dto.ErrorResponse'
+      summary: Get user profile by ID
+      tags:
+      - Users
+swagger: "2.0"
